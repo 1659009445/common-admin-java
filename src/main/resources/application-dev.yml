@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      username: root
+      password: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://192.168.24.16:3306/huii_admin?useUnicode=true&useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+      pool-prepared-statements: true
+      initial-size: 10
+      min-idle: 10
+      max-active: 50
+      max-wait: 60000
+  redis:
+    host: 192.168.24.16
+    port: 6379
+    database: 0
+    password:
+    connect-timeout: 100000
+  rabbitmq:
+    host:
+
+logging:
+  level:
+    root: info
+    com.huii.admin: debug
