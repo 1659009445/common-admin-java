@@ -47,6 +47,7 @@ public class SysUserController {
 
     @ApiOperation("获取用户个人信息")
     @GetMapping("/my")
+    @PreAuthorize("hasAuthority('sys:common:all')")
     public Result<UserBasicInfoDto> getUserInfo(){
         Long id = Long.parseLong((String) request.getAttribute(Const.USER_ID));
         SysUser user = sysUserService.getById(id);
@@ -123,11 +124,11 @@ public class SysUserController {
                 .eq(SysUserRole::getUserId, id));
         sysUserRoleService.saveBatch(userRoles);
 
-        for( int i =0; i<roleIds.length;i++){
-            sysUserService.clearUserAuthorityInfoByRoleId(roleIds[i]);
-        }
+//        for( int i =0; i<roleIds.length;i++){
+//            sysUserService.clearUserAuthorityInfoByRoleId(roleIds[i]);
+//        }
 
-        return Result.success(userRoles);
+        return Result.success(null);
     }
 
     @ApiOperation("管理员重设密码")
@@ -140,6 +141,7 @@ public class SysUserController {
 
     @ApiOperation("用户重设密码")
     @PostMapping("/pass/my")
+    @PreAuthorize("hasAuthority('sys:common:all')")
     public Result<Object> updatePassByUser(@Validated @RequestBody PasswordDto dto) {
         Long id = Long.parseLong((String) request.getAttribute(Const.USER_ID));
         sysUserService.updatePassByUser(id, dto);

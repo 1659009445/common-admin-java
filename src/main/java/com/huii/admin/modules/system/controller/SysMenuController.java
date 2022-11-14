@@ -38,6 +38,7 @@ public class SysMenuController {
 
     @ApiOperation("获取菜单导航栏")
     @GetMapping("/nav")
+    @PreAuthorize("hasAuthority('sys:common:all')")
     public Result<Map<String, Object>> getMenuList(){
         Long id = Long.parseLong((String) request.getAttribute(Const.USER_ID));
 
@@ -49,6 +50,17 @@ public class SysMenuController {
         map.put("menuList",list);
 
         return Result.success(map);
+    }
+
+    @ApiOperation("获取菜单导航栏")
+    @GetMapping("/nav/add")
+    @PreAuthorize("hasAuthority('sys:menu:query')")
+    public Result<List<MenuNavDto>> getMenuNavAddList(){
+        Long id = Long.parseLong((String) request.getAttribute(Const.USER_ID));
+
+        List<MenuNavDto> list = sysMenuService.getHoleMenuList(id);
+
+        return Result.success(list);
     }
 
     @ApiOperation("查询单例")

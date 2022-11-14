@@ -25,12 +25,23 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     @Autowired
     private SysRoleMapper sysRoleMapper;
 
+    @Autowired
+    private SysMenuMapper sysMenuMapper;
+
     @Override
     public List<MenuNavDto> getMenuList(Long id) {
         List<SysMenu> menuList = sysUserMapper.getMenuEntityByUserId(id);
         List<SysMenu> menuTreeList = buildTreeList(menuList);
 
-        return convertDtoList(menuTreeList);
+        return convertDtoList(menuTreeList, 1);
+    }
+
+    @Override
+    public List<MenuNavDto> getHoleMenuList(Long id) {
+        List<SysMenu> menuList = sysMenuMapper.selectList(null);
+        List<SysMenu> menuTreeList = buildTreeList(menuList);
+
+        return convertDtoList(menuTreeList,0);
     }
 
     @Override
@@ -75,10 +86,11 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     /**
      * 转换dto
+     * @param type type为1 表示生成nav菜单 只有getIsTitle == 1 时 加入list  type为0时 表示生成新增菜单 此时全部生成
      * @param menuTreeList menuTreeList
      * @return MenuNavDtoList
      */
-    private List<MenuNavDto> convertDtoList(List<SysMenu> menuTreeList) {
+    private List<MenuNavDto> convertDtoList(List<SysMenu> menuTreeList,int type) {
         List<MenuNavDto> myList = new ArrayList<>();
 
         menuTreeList.forEach(i ->{
@@ -92,9 +104,11 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             dto.setComponent(i.getComponent());
 
             if(i.getChildren().size() > 0){
-                dto.setChildren(convertDtoList(i.getChildren()));
+                dto.setChildren(convertDtoList(i.getChildren(),type));
             }
-            if(i.getIsTitle()==1){
+            if(type == 1 && i.getIsTitle()==1){
+                myList.add(dto);
+            } else if (type == 0){
                 myList.add(dto);
             }
         });

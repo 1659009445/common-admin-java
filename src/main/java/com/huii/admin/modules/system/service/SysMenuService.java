@@ -15,6 +15,13 @@ public interface SysMenuService extends IService<SysMenu> {
     List<MenuNavDto> getMenuList(Long id);
 
     /**
+     * 获取全部菜单信息
+     * @param id userId
+     * @return list
+     */
+    List<MenuNavDto> getHoleMenuList(Long id);
+
+    /**
      * 获取菜单集合 已转为树状结构
      * @return list
      */
@@ -26,4 +33,6 @@ public interface SysMenuService extends IService<SysMenu> {
      * @return boolean
      */
     Boolean delSysRoleR(Long id);
+
+
 }
