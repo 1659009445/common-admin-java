@@ -2,6 +2,8 @@ package com.huii.admin.modules.system.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.huii.admin.common.annotation.FiledName;
+import com.huii.admin.common.annotation.NotField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiParam;
 import lombok.Data;
@@ -14,6 +16,7 @@ import java.util.List;
 
 @Data
 @ApiModel("菜单表")
+@FiledName("菜单")
 @TableName("sys_menu")
 @EqualsAndHashCode(callSuper = true)
 public class SysMenu extends BaseEntity implements Serializable {
@@ -50,6 +53,7 @@ public class SysMenu extends BaseEntity implements Serializable {
     @TableField("orderNum")
     private Integer orderNum;
 
+    @NotField
     @TableField(exist = false)
     private List<SysMenu> children = new ArrayList<>();
 

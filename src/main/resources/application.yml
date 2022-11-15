@@ -2,6 +2,10 @@ server:
   port: 8088
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
   application:
     name: admin
   profiles:
@@ -23,5 +27,14 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
 
+#token过期时间
+#token密钥
 jwt:
   single: 24
+  key: myKey
+
+#文件上传路径
+#文件上传大小配置在spring中
+file:
+  max: 50
+  path: D:\m_project\hp\admin\src\main\resources\files\
