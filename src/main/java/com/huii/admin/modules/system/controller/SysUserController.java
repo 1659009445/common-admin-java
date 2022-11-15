@@ -1,11 +1,13 @@
 package com.huii.admin.modules.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.huii.admin.common.exception.NormalException;
 import com.huii.admin.common.lang.Const;
 import com.huii.admin.common.lang.dto.PasswordDto;
 import com.huii.admin.common.lang.dto.ResetPasswordDto;
 import com.huii.admin.common.lang.dto.UserBasicInfoDto;
 import com.huii.admin.common.result.Result;
+import com.huii.admin.common.utils.ExcelUtil;
 import com.huii.admin.common.utils.PageUtil;
 import com.huii.admin.modules.system.entity.SysRole;
 import com.huii.admin.modules.system.entity.SysUser;
@@ -23,6 +25,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,6 +51,9 @@ public class SysUserController {
 
     @Autowired
     SysUserRoleService sysUserRoleService;
+
+    @Autowired
+    ExcelUtil excelUtil;
 
     @ApiOperation("获取用户个人信息")
     @GetMapping("/my")
@@ -154,5 +164,19 @@ public class SysUserController {
     public Result<Object> updatePassByEmail(@Validated @RequestBody ResetPasswordDto dto) {
         sysUserService.updateForgetPass(dto);
         return Result.success(null);
+    }
+
+    @ApiOperation("导出excel")
+    @GetMapping("/download")
+    @PreAuthorize("hasAuthority('sys:common:all')")
+    public void downloadExcel(HttpServletResponse response) throws IOException {
+        List<SysUser> list = sysUserService.getList();
+        try {
+            excelUtil.createExcel(list,SysUser.class,response);
+//            return Result.success(null);
+        } catch (NormalException e){
+//            return Result.failed("下载失败!");
+        }
+
     }
 }

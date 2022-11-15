@@ -89,4 +89,10 @@ public interface SysUserService extends IService<SysUser> {
      * @return boolean
      */
     Boolean updateForgetPass(ResetPasswordDto dto);
+
+    /**
+     * 查询全部
+     * @return
+     */
+	List<SysUser> getList();
 }

@@ -3,6 +3,7 @@ package com.huii.admin.modules.system.controller;
 import com.google.code.kaptcha.Producer;
 import com.huii.admin.common.lang.Const;
 import com.huii.admin.common.result.Result;
+import com.huii.admin.common.utils.ExcelUtil;
 import com.huii.admin.common.utils.RedisTemplateUtil;
 import com.huii.admin.security.util.JwtAuthUtil;
 import io.swagger.annotations.Api;
@@ -35,6 +36,9 @@ public class AuthorityController {
 
     @Autowired
     private RedisTemplateUtil redisTemplateUtil;
+
+    @Autowired
+    private ExcelUtil excelUtil;
 
     /**
      * Kaptcha 验证码
@@ -70,4 +74,10 @@ public class AuthorityController {
     }
 
     //TODO 修改密码获取验证码 mailUtil
+
+    @ApiOperation("生成下载文件名")
+    @GetMapping("/name")
+    public Result<String> getDownloadFileName() {
+        return Result.success(excelUtil.getName());
+    }
 }

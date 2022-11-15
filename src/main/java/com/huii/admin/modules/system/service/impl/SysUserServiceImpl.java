@@ -185,4 +185,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         return true;
     }
 
+    @Override
+    public List<SysUser> getList() {
+        return sysUserMapper.selectList(null);
+    }
+
+
 }

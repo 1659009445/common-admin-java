@@ -1,7 +1,11 @@
 # 使用
 
-快速上手:
+配置:
+* 数据库 url database
+* redis
+* jwt
 
+快速上手:
 * 新增接口:modules/pack_name
 * 接口配置权限@PreAuthorize("hasAuthority('xx')")
 * 更改权限需要在src中进行

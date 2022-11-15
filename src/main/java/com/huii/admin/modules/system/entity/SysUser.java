@@ -1,6 +1,8 @@
 package com.huii.admin.modules.system.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.huii.admin.common.annotation.FiledName;
+import com.huii.admin.common.annotation.NotField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiParam;
 import lombok.Data;
@@ -13,9 +15,11 @@ import java.util.List;
 
 @Data
 @ApiModel("用户表")
+@FiledName("用户")
 @TableName("sys_user")
 public class SysUser implements Serializable{
 
+    @NotField
     private static final long serialVersionUID = 1L;
 
     @ApiParam("ID")
@@ -60,6 +64,7 @@ public class SysUser implements Serializable{
     @TableLogic
     private int isDeleted;
 
+    @NotField
     @TableField(exist = false)
     private List<SysRole> roleList = new ArrayList<>();
 
