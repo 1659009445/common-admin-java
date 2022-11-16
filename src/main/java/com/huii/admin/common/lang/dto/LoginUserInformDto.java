@@ -17,6 +17,9 @@ public class LoginUserInformDto implements Serializable {
     @ApiModelProperty("username")
     private String username;
 
+    @ApiModelProperty("avatar")
+    private String avatar;
+
     @ApiModelProperty("最后登录ID")
     private String LastLoginIP;
 

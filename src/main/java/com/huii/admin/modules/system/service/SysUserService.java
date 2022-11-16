@@ -95,4 +95,14 @@ public interface SysUserService extends IService<SysUser> {
      * @return
      */
 	List<SysUser> getList();
+
+    /**
+     * 匹配旧密码
+     * @param id
+     * @param used
+     * @return
+     */
+	Boolean confirmOldPassword(Long id,String used);
+
+    Boolean updateNewPassword(Long id, String password);
 }

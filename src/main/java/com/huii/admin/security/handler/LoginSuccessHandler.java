@@ -3,6 +3,7 @@ package com.huii.admin.security.handler;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
+import com.huii.admin.common.annotation.LoginLog;
 import com.huii.admin.common.lang.Const;
 import com.huii.admin.common.lang.dto.LoginUserInformDto;
 import com.huii.admin.common.result.Result;
@@ -44,6 +45,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     private RedisTemplateUtil redisTemplateUtil;
 
     @Override
+    @LoginLog(value = "登陆成功")
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         response.setStatus(200);
         response.setContentType("application/json;charset=UTF-8");
@@ -57,7 +59,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         //获取并更新用户信息
         SysUser user = sysUserMapper.selectOne(new LambdaQueryWrapper<SysUser>()
                 .eq(SysUser::getId, id)
-                .select(SysUser::getId, SysUser::getUsername, SysUser::getLastLoginTime, SysUser::getLastLoginIp));
+                .select(SysUser::getId, SysUser::getUsername, SysUser::getLastLoginTime, SysUser::getLastLoginIp,SysUser::getAvatar));
         user.setLastLoginIp(ipAddressUtil.getIpAddress(request));
         user.setLastLoginTime(LocalDateTime.now());
         sysUserMapper.updateById(user);
@@ -68,6 +70,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         LoginUserInformDto dto = new LoginUserInformDto();
         dto.setId(user.getId());
         dto.setUsername(user.getUsername());
+        dto.setAvatar(user.getAvatar());
         dto.setLastLoginIP(ipAddressUtil.getIpAddress(request));
         dto.setLastLoginTime(LocalDateTime.now());
 

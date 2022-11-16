@@ -190,5 +190,20 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         return sysUserMapper.selectList(null);
     }
 
+    @Override
+    public Boolean confirmOldPassword(Long id, String used) {
+        SysUser sysUser = sysUserMapper.selectById(id);
+        String password = sysUser.getPassword();
+        return bCryptPasswordEncoder.matches(used,password);
+    }
+
+    @Override
+    public Boolean updateNewPassword(Long id, String password) {
+        SysUser sysUser = sysUserMapper.selectById(id);
+        String encode = bCryptPasswordEncoder.encode(password);
+        sysUser.setPassword(encode);
+        return sysUserMapper.updateById(sysUser)>0;
+    }
+
 
 }

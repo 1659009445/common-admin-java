@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Data
 @ApiModel("登录日志")
@@ -28,7 +29,7 @@ public class SysInfoLogin implements Serializable {
 	private String userName;
 
 	@ApiParam("登陆时间")
-	private String loginTime;
+	private LocalDateTime loginTime;
 
 	@ApiParam("登录IP")
 	private String loginIp;
@@ -44,5 +45,8 @@ public class SysInfoLogin implements Serializable {
 
 	@ApiParam("浏览器")
 	private String loginBrowser;
+
+	@ApiParam("错误时间")
+	private String errInfo;
 
 }

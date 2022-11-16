@@ -1,6 +1,7 @@
 package com.huii.admin.security.handler;
 
 import com.alibaba.fastjson.JSON;
+import com.huii.admin.common.annotation.LoginLog;
 import com.huii.admin.common.enums.ResultCode;
 import com.huii.admin.common.result.Result;
 import org.apache.commons.lang3.StringUtils;
@@ -19,12 +20,13 @@ import java.nio.charset.StandardCharsets;
 public class LoginFailureHandler implements AuthenticationFailureHandler {
 
     @Override
+    @LoginLog(value = "登录失败",isLoginSuccess = false)
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         response.setStatus(200);
         response.setContentType("application/json;charset=UTF-8");
 
         String msg = (String) request.getAttribute("kaptcha_mismatch");
-        String result = JSON.toJSONString(Result.failed(StringUtils.isNotBlank(msg) ? msg : ResultCode.LOGIN_ACCOUNT_ERROR.getMessage()));
+        String result = JSON.toJSONString(Result.failed("1000",StringUtils.isNotBlank(msg) ? msg : ResultCode.LOGIN_ACCOUNT_ERROR.getMessage()));
 
         ServletOutputStream outputStream = response.getOutputStream();
         outputStream.write(result.getBytes(StandardCharsets.UTF_8));

@@ -1,6 +1,7 @@
 package com.huii.admin.security.handler;
 
 import com.alibaba.fastjson.JSON;
+import com.huii.admin.common.annotation.LoginLog;
 import com.huii.admin.common.enums.ResultCode;
 import com.huii.admin.common.lang.Const;
 import com.huii.admin.common.result.Result;

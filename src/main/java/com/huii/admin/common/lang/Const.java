@@ -13,7 +13,7 @@ public class Const {
      */
     public static final String USER_DEFAULT_PASSWORD="123456";
 
-    public static final String USER_DEFAULT_AVATAR=null;
+    public static final String USER_DEFAULT_AVATAR="https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png";
 
     public static final Integer USER_DEFAULT_SEXUAL=1;
 

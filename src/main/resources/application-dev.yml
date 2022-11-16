@@ -20,8 +20,25 @@ spring:
     connect-timeout: 100000
   rabbitmq:
     host:
+  mail:
+    port: 465
+    protocol: smtps
+    host: smtp.163.com
+    username:
+    password:
+    default-encoding: UTF-8
+
 
 logging:
   level:
     root: info
     com.huii.admin: debug
+
+oss:
+  config:
+    end-point:
+    bucket-name:
+    key-id:
+    key-secret:
+    open: false
+

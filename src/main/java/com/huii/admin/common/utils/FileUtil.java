@@ -70,4 +70,13 @@ public class FileUtil {
 
 	}
 
+	/**
+	 * 文件上传至oss
+	 * @param multipartFile
+	 * @param fileName
+	 */
+	public void uploadOss(MultipartFile multipartFile, String fileName){
+
+	}
+
 }
