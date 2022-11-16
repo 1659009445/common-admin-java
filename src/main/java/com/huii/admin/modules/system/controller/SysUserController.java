@@ -1,6 +1,7 @@
 package com.huii.admin.modules.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.huii.admin.common.annotation.Log;
 import com.huii.admin.common.exception.NormalException;
 import com.huii.admin.common.lang.Const;
 import com.huii.admin.common.lang.dto.PasswordDto;
@@ -55,6 +56,7 @@ public class SysUserController {
     @Autowired
     ExcelUtil excelUtil;
 
+    @Log(title = "获取个人信息",isSaveRequestData = false,isSaveResponseData = false)
     @ApiOperation("获取用户个人信息")
     @GetMapping("/my")
     @PreAuthorize("hasAuthority('sys:common:all')")
@@ -65,6 +67,7 @@ public class SysUserController {
         return Result.success(sysUserService.transformDto(user));
     }
 
+    @Log(title = "获取用户信息",isSaveRequestData = false,isSaveResponseData = false)
     @ApiOperation("查询单例")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('sys:user:query')")
@@ -76,6 +79,7 @@ public class SysUserController {
         return Result.success(sysUser);
     }
 
+    @Log(title = "获取用户集合",isSaveRequestData = false,isSaveResponseData = false)
     @ApiOperation("查询集合")
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('sys:user:query')")
@@ -84,6 +88,7 @@ public class SysUserController {
         return Result.success(page);
     }
 
+    @Log(title = "保存用户信息")
     @ApiOperation("保存")
     @PostMapping("/insert")
     @PreAuthorize("hasAuthority('sys:user:insert')")
@@ -94,6 +99,7 @@ public class SysUserController {
         return Result.success(sysUser_);
     }
 
+    @Log(title = "更新用户信息")
     @ApiOperation("更新")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sys:user:update')")
@@ -102,6 +108,7 @@ public class SysUserController {
         return Result.success(sysUser);
     }
 
+    @Log(title = "删除用户信息")
     @Transactional
     @ApiOperation("删除")
     @PostMapping("/delete")
@@ -114,6 +121,7 @@ public class SysUserController {
         return Result.success(null);
     }
 
+    @Log(title = "用户获取角色列表",isSaveRequestData = false,isSaveResponseData = false)
     @Transactional
     @ApiOperation("获取角色列表")
     @PostMapping("/role/{id}")
@@ -141,6 +149,7 @@ public class SysUserController {
         return Result.success(null);
     }
 
+    @Log(title = "管理员重设密码",isSaveRequestData = false,isSaveResponseData = false)
     @ApiOperation("管理员重设密码")
     @PostMapping("/pass/admin/{id}")
     @PreAuthorize("hasAuthority('sys:user')")
@@ -149,6 +158,7 @@ public class SysUserController {
         return Result.success(null);
     }
 
+    @Log(title = "用户重设密码",isSaveRequestData = false,isSaveResponseData = false)
     @ApiOperation("用户重设密码")
     @PostMapping("/pass/my")
     @PreAuthorize("hasAuthority('sys:common:all')")
@@ -159,6 +169,7 @@ public class SysUserController {
         return Result.success(null);
     }
 
+    @Log(title = "用户忘记密码",isSaveRequestData = false,isSaveResponseData = false)
     @ApiOperation("用户忘记密码")
     @PostMapping("/pass/reset")
     public Result<Object> updatePassByEmail(@Validated @RequestBody ResetPasswordDto dto) {
@@ -166,17 +177,12 @@ public class SysUserController {
         return Result.success(null);
     }
 
+    @Log(title = "导出excel",isSaveRequestData = false,isSaveResponseData = false)
     @ApiOperation("导出excel")
     @GetMapping("/download")
     @PreAuthorize("hasAuthority('sys:common:all')")
-    public void downloadExcel(HttpServletResponse response) throws IOException {
+    public void downloadExcel(HttpServletResponse response){
         List<SysUser> list = sysUserService.getList();
-        try {
-            excelUtil.createExcel(list,SysUser.class,response);
-//            return Result.success(null);
-        } catch (NormalException e){
-//            return Result.failed("下载失败!");
-        }
-
+        excelUtil.createExcel(list,SysUser.class,response);
     }
 }

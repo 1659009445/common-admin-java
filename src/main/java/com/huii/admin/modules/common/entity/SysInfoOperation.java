@@ -10,7 +10,11 @@ import io.swagger.annotations.ApiParam;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
+/**
+ * 	r @NotField注解 不会导出请求参数和返回参数 如需要可以去掉注解
+ */
 @Data
 @ApiModel("操作日志")
 @FiledName("操作日志")
@@ -28,15 +32,34 @@ public class SysInfoOperation implements Serializable {
 	private String userName;
 
 	@ApiParam("操作时间")
-	private String opTime;
+	private LocalDateTime opTime;
 
 	@ApiParam("操作IP")
 	private String opIp;
 
+	@ApiParam("操作对象")
+	private String opController;
+
 	@ApiParam("操作方法")
 	private String opMethod;
 
+	@ApiParam("请求方法")
+	private String reqMethod;
 
 	@ApiParam("操作信息")
 	private String opInfo;
+
+	@ApiParam("错误信息")
+	private String errInfo;
+
+	@ApiParam("操作描述")
+	private String opTitle;
+
+	@NotField
+	@ApiParam("请求参数")
+	private String reqParam;
+
+	@NotField
+	@ApiParam("返回参数")
+	private String resParam;
 }

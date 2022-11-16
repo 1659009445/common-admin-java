@@ -1,5 +1,6 @@
 package com.huii.admin.modules.common.controller;
 
+import com.huii.admin.common.annotation.Log;
 import com.huii.admin.common.result.Result;
 import com.huii.admin.modules.common.service.FileService;
 import io.swagger.annotations.Api;
@@ -22,6 +23,7 @@ public class FileController {
 	 * @param multipartFile multipartFile
 	 * @return null
 	 */
+	@Log(title = "文件上传",isSaveResponseData = false,isSaveRequestData = false)
 	@RequestMapping("upload")
 	public Result<?> upload(@RequestParam("file") MultipartFile multipartFile){
 		fileService.upload(multipartFile);

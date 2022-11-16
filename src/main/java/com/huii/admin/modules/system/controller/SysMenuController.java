@@ -1,6 +1,7 @@
 package com.huii.admin.modules.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.huii.admin.common.annotation.Log;
 import com.huii.admin.common.exception.NormalException;
 import com.huii.admin.common.lang.Const;
 import com.huii.admin.common.lang.dto.MenuNavDto;
@@ -35,7 +36,7 @@ public class SysMenuController {
     @Autowired
     SysMenuService sysMenuService;
 
-
+    @Log(title = "获取菜单导航栏",isSaveRequestData = false,isSaveResponseData = false)
     @ApiOperation("获取菜单导航栏")
     @GetMapping("/nav")
     @PreAuthorize("hasAuthority('sys:common:all')")
@@ -52,7 +53,8 @@ public class SysMenuController {
         return Result.success(map);
     }
 
-    @ApiOperation("获取菜单导航栏")
+    @Log(title = "获取全部菜单导航栏",isSaveRequestData = false,isSaveResponseData = false)
+    @ApiOperation("获取全部菜单导航栏")
     @GetMapping("/nav/add")
     @PreAuthorize("hasAuthority('sys:menu:query')")
     public Result<List<MenuNavDto>> getMenuNavAddList(){
@@ -63,6 +65,7 @@ public class SysMenuController {
         return Result.success(list);
     }
 
+    @Log(title = "查询菜单详情",isSaveRequestData = false,isSaveResponseData = false)
     @ApiOperation("查询单例")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('sys:menu:query')")
@@ -70,6 +73,7 @@ public class SysMenuController {
         return Result.success(sysMenuService.getById(id));
     }
 
+    @Log(title = "查询菜单集合",isSaveRequestData = false,isSaveResponseData = false)
     @ApiOperation("查询全部")
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('sys:menu:query')")
@@ -77,6 +81,7 @@ public class SysMenuController {
         return Result.success(sysMenuService.getTreeList());
     }
 
+    @Log(title = "保存菜单")
     @ApiOperation("保存")
     @PostMapping("/insert")
     @PreAuthorize("hasAuthority('sys:menu:insert')")
@@ -88,6 +93,7 @@ public class SysMenuController {
         return Result.success(sysMenu);
     }
 
+    @Log(title = "更新菜单")
     @ApiOperation("更新")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sys:menu:update')")
@@ -99,6 +105,7 @@ public class SysMenuController {
         return Result.success(sysMenu);
     }
 
+    @Log(title = "删除菜单")
     @ApiOperation("删除")
     @PostMapping("/delete/{id}")
     @PreAuthorize("hasAuthority('sys:menu:delete')")

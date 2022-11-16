@@ -1,6 +1,7 @@
 package com.huii.admin.modules.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.huii.admin.common.annotation.Log;
 import com.huii.admin.common.lang.Const;
 import com.huii.admin.common.result.Result;
 import com.huii.admin.common.utils.PageUtil;
@@ -44,6 +45,7 @@ public class SysRoleController {
     @Autowired
     SysUserRoleService sysUserRoleService;
 
+    @Log(title = "获取角色信息",isSaveRequestData = false,isSaveResponseData = false)
     @ApiOperation("查询单例")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('sys:role:query')")
@@ -60,6 +62,7 @@ public class SysRoleController {
         return Result.success(sysRole);
     }
 
+    @Log(title = "获取角色集合",isSaveRequestData = false,isSaveResponseData = false)
     @ApiOperation("查询集合")
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('sys:role:query')")
@@ -68,6 +71,7 @@ public class SysRoleController {
         return Result.success(page);
     }
 
+    @Log(title = "保存角色信息")
     @ApiOperation("保存")
     @PostMapping("/insert")
     @PreAuthorize("hasAuthority('sys:role:insert')")
@@ -79,6 +83,7 @@ public class SysRoleController {
         return Result.success(sysRole);
     }
 
+    @Log(title = "更新角色信息")
     @ApiOperation("更新")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sys:role:update')")
@@ -89,6 +94,7 @@ public class SysRoleController {
         return Result.success(sysRole);
     }
 
+    @Log(title = "删除角色信息")
     @Transactional
     @ApiOperation("删除")
     @PostMapping("/delete")
@@ -105,6 +111,7 @@ public class SysRoleController {
         return Result.success(null);
     }
 
+    @Log(title = "修改角色权限")
     @Transactional
     @ApiOperation("修改角色权限")
     @PostMapping("/perm/{roleId}")
